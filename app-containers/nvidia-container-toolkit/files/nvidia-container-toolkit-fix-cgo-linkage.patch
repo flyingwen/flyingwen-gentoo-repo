@@ -1,0 +1,13 @@
+diff --git a/Makefile b/Makefile
+index 7f7d375..69cffd6 100644
+--- a/Makefile
++++ b/Makefile
+@@ -61,7 +61,7 @@ cmd-%: COMMAND_BUILD_OPTIONS = -o $(PREFIX)/$(*)
+ endif
+ cmds: $(CMD_TARGETS)
+ $(CMD_TARGETS): cmd-%:
+-	GOOS=$(GOOS) go build -ldflags "-extldflags=-Wl,-z,lazy -s -w -X $(CLI_VERSION_PACKAGE).gitCommit=$(GIT_COMMIT) -X $(CLI_VERSION_PACKAGE).version=$(CLI_VERSION)" $(COMMAND_BUILD_OPTIONS) $(MODULE)/cmd/$(*)
++	GOOS=$(GOOS) go build -ldflags "-extldflags '-fuse-ld=gold -Wl,--weak-unresolved-symbols' -s -w -X $(CLI_VERSION_PACKAGE).gitCommit=$(GIT_COMMIT) -X $(CLI_VERSION_PACKAGE).version=$(CLI_VERSION)" $(COMMAND_BUILD_OPTIONS) $(MODULE)/cmd/$(*)
+ 
+ build:
+ 	GOOS=$(GOOS) go build ./...

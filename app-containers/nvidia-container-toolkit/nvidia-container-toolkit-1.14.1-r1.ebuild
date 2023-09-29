@@ -18,13 +18,18 @@ DEPEND="
 RDEPEND="${DEPEND}"
 BDEPEND="
 	sys-devel/make
+	sys-devel/binutils[gold]
 "
 
+PATCHES=(
+	# https://github.com/NVIDIA/go-nvml/issues/36
+	"${FILESDIR}"/${PN}-fix-cgo-linkage.patch
+)
+
 EGIT_REPO_URI="https://github.com/NVIDIA/${PN}.git"
-EGIT_COMMIT="v1.14.1"
+EGIT_COMMIT="v${PV}"
 
 src_unpack() {
-	EVCS_OFFLINE=1
 	git-r3_src_unpack
 }
 
